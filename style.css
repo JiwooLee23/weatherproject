@@ -1,0 +1,81 @@
+body {
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(#E040FB, #00BCD4)fixed;
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(#E040FB, #00BCD4)dixed;
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: #FFF;
+  font-family: sans-serif;
+}
+    body{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      height: 100vh;
+      box-sizing: border-box;
+      margin: 0px;
+      padding: 2rem;}
+
+    .circle{
+      width: 100px;
+      height: 100px;
+      background-color:pink;
+      border-radius: 500px;
+      transition: all 1s ease;}
+
+    .scale{
+      transform: scale(1.2);}
+
+    .text{
+      font-family: sans-serif;
+      font-weight: 200;
+      font-size: 20px;
+      width: 100vw;
+      text-align: center;
+      box-sizing: border-box;
+      color:white;}
+
+    #tempText{
+      color: white;
+    text-align: center;}
+
+    #windText{
+      color: white;
+    text-align: center;}
+
+    #wind{
+      background-color: lightblue;}
+
+
+
+body {
+	margin: 0;
+	padding: 0;
+	color: #fff;
+	font-family:sans-serif;
+}
+
+select {
+	position: fixed;
+	top: 5px;
+	left: 5px;
+}
+
+ul {
+	padding: 0;
+	margin: 10px 0 0 0;
+}
+
+li {
+	list-style-type: none;
+	padding: 10px 0 0 16px;
+}
+
+canvas {
+  padding-left: 10px;
+}
+
+#temperature {
+	font-size: 200px;
+}

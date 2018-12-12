@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Weather</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  </head>
+  <body>
+    <div id="bloc">
+      <div id="app">
+        <div id="infos">
+            <span id="temperature"></span><span id="unit"></span>
+            <canvas id="local-weather" width="100" height="100">
+          </canvas>
+          <ul>
+              <li><span id="weather"></span></li>
+              <li><span id="location"></span></li>
+          </ul>
+        </div>
+      </div>
+      </div>
+
+
+    <div id="tempText" class="text"></div>
+    <div id="circles">
+      <div id="temp" class="circle" style="width: 200px; height: 200px;"></div>
+      <div id="wind" class="circle" style="width: 60px; height: 60px;"></div>
+    </div>
+
+
+    <div id="windText" class="text">the current wind speed is 7.07 mph</div>
+     </body>
+
+    <script>
+      $("document").ready(function(){
+        $.ajax({
+          url: "https://api.openweathermap.org/data/2.5/weather?q=New York&units=imperial&appid=ef3e268cbe387a39c451c064de7ff0c1",
+          success: function(data) {
+            console.log(data);
+            handleData(data)
+          }
+        });
+
+        var weatherText = $("#weather")
+        var temp, wind
+
+        function handleData(data){
+          $("#tempText").html("Right now is " + data.main.temp + "°")
+          $("#windText").html("the current wind speed is " + data.wind.speed + " mph")
+
+          $("#temp").css("width", data.main.temp*6);
+          $("#temp").css("height", data.main.temp*6);
+
+          $("#wind").css("width", data.wind.speed*6);
+          $("#wind").css("height", data.wind.speed*6);
+        }
+      })
+
+      $(function() {
+      $.getJSON('https://ipapi.co/json/', function(data){
+
+        var lat = data.latitude;
+        var lon = data.longitude;
+        var city = data.city;
+        var country = data.country_name;
+        var region = data.region;
+        var key = '272a95d9cb08bf5ca5586c50d24ce37f';
+        console.log(lat, lon);
+
+        $.getJSON('https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/'+key+'/'+lat+','+lon+'', function(weather) {
+
+
+          var tempF = Math.round( weather.currently.temperature );
+          var temp = Math.round( (tempF - 32) * 5 / 9 );
+          var icone = weather.currently.icon;
+          var weather = weather.currently.summary;
+
+          $('#temperature').html(temp);
+          $('#unit').html('°C')
+          $('#weather').html('Conditions: ' + weather);
+          $('#location').html('Location: ' + city + ', ' + country);
+
+          var skycons = new Skycons({"color": "pink"});
+          skycons.add("local-weather", icone);
+          skycons.play();
+
+          $('#units').on('change', function() {
+            console.log($(this).val());
+            if ( $(this).val() === "fahrenheit" ) {
+              $('#temperature').html(tempF);
+              $('#unit').html('°F');
+            } else {
+              $('#temperature').html(temp);
+              $('#unit').html('°C');
+            }
+          });
+        });
+      });
+    });
+    </script>
+
+</html>
